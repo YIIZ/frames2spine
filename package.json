@@ -1,0 +1,47 @@
+{
+  "name": "Frames2Spine",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "startjs": "webpack-dev-server --mode=development --hot --history-api-fallback",
+    "buildjs": "webpack --mode=production --progress --hide-modules",
+    "build": "yarn buildjs && electron-packager . --all"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/plugin-proposal-decorators": "latest",
+    "@babel/plugin-proposal-do-expressions": "latest",
+    "@babel/plugin-proposal-logical-assignment-operators": "latest",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "latest",
+    "@babel/plugin-proposal-optional-chaining": "latest",
+    "@babel/plugin-proposal-partial-application": "latest",
+    "@babel/plugin-proposal-pipeline-operator": "latest",
+    "@babel/plugin-syntax-dynamic-import": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "latest",
+    "babel-plugin-transform-jsxspreadchild": "^7.0.0",
+    "core-js": "^3.2.1",
+    "electron": "^6.0.8",
+    "electron-packager": "^14.0.6",
+    "exports-loader": "latest",
+    "file-loader": "latest",
+    "html-webpack-plugin": "latest",
+    "imports-loader": "latest",
+    "raw-loader": "latest",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "latest",
+    "url-loader": "latest",
+    "val-loader": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
+  },
+  "dependencies": {
+    "rui": "https://bitbucket.org/teambun/rui/get/30e6fce2a218.tar.gz"
+  },
+  "browserslist": [
+    "chrome 76"
+  ]
+}
