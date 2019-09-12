@@ -1,7 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
+const HTMLPlugin = require('html-webpack-plugin')
 
-module.exports = {
+module.exports = (env, { mode, PROD = (mode ==='production') }) => ({
   context: `${__dirname}/src`,
   resolve: {
     symlinks: false,
@@ -14,7 +15,8 @@ module.exports = {
   output: {
     path: `${__dirname}/dist`,
     publicPath: `${process.env.PUBLIC || ''}`,
-    filename: '[name].js',
+    // chunkhash not working in dev-server
+    filename: PROD ? '[name]-[chunkhash:8].js' : '[name].js',
   },
   module: {
     rules: [{
@@ -62,5 +64,25 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
+    new webpack.ProvidePlugin({
+      fetch: ['whatwg-fetch', 'fetch'],
+    }),
+    new HTMLPlugin({
+      template: 'index.html.ejs',
+      // https://github.com/kangax/html-minifier#options-quick-reference
+      minify: {
+        collapseWhitespace: PROD,
+        removeComments: PROD,
+      },
+    }),
+    // new (require('webpack-bundle-analyzer')).BundleAnalyzerPlugin({ openAnalyzer: false }),
+    // new (require('webpack-jarvis'))(),
   ],
-}
+})
+
+// default disable comments for `webpack -p`
+// https://github.com/webpack-contrib/terser-webpack-plugin/blob/master/src/index.js#L46
+Object.defineProperty(require('terser-webpack-plugin').prototype, 'options', {
+  get() { return this._options },
+  set(o) { o.terserOptions.output.comments = false; this._options = o },
+})

@@ -1,11 +1,10 @@
 {
-  "name": "Frames2Spine",
-  "main": "main.js",
+  "private": true,
   "scripts": {
-    "start": "electron .",
-    "startjs": "webpack-dev-server --mode=development --hot --history-api-fallback",
-    "buildjs": "webpack --mode=production --progress --hide-modules",
-    "build": "yarn buildjs && electron-packager . --all"
+    "start": "webpack-dev-server --mode=development --hot --history-api-fallback",
+    "build": "webpack --mode=production --progress --hide-modules",
+    "cleanup": "rimraf dist/*",
+    "prebuild": "yarn cleanup"
   },
   "devDependencies": {
     "@babel/core": "latest",
@@ -23,8 +22,6 @@
     "babel-loader": "latest",
     "babel-plugin-transform-jsxspreadchild": "^7.0.0",
     "core-js": "^3.2.1",
-    "electron": "^6.0.8",
-    "electron-packager": "^14.0.6",
     "exports-loader": "latest",
     "file-loader": "latest",
     "html-webpack-plugin": "latest",
@@ -42,6 +39,6 @@
     "rui": "https://bitbucket.org/teambun/rui/get/30e6fce2a218.tar.gz"
   },
   "browserslist": [
-    "chrome 76"
+    "> 2%"
   ]
 }
