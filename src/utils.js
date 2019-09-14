@@ -29,7 +29,8 @@ export function folders2SpineAnimation(folders, fps=24) {
 
   const animations = folders.map(folder => {
     const { name: folderName, files } = folder
-    const frames = files.map((name) => `${folderName}/${name}`)
+    // spine atlas don't include extname
+    const frames = files.map((name) => `${folderName}/${name.replace(/\.\w+$/, '')}`)
     return [folderName, frames]
   })
 
