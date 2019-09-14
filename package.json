@@ -4,7 +4,9 @@
     "start": "webpack-dev-server --mode=development --hot --history-api-fallback",
     "build": "webpack --mode=production --progress --hide-modules",
     "cleanup": "rimraf dist/*",
-    "prebuild": "yarn cleanup"
+    "prebuild": "yarn cleanup",
+    "prepublish": "yarn build",
+    "publish": "coscp dist demo:frames2spine"
   },
   "devDependencies": {
     "@babel/core": "latest",
