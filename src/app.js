@@ -14,7 +14,10 @@ function App() {
     return `data:text/json;base64,${btoa(result)}`
   })
 
-  const drop = evt => dataTransfer2Folders(evt.dataTransfer).then(setFolders)
+  const drop = evt => {
+    dataTransfer2Folders(evt.dataTransfer)
+      .then(newFolders => setFolders(folders().concat(newFolders)))
+  }
   const remove = (folder) => {
     setFolders(folders().filter(f => f !== folder))
   }
