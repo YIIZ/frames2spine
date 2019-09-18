@@ -45,21 +45,28 @@ export function folders2SpineAnimation(folders, fps=24) {
     //   images: './images/',
     //   audio: '',
     // },
-    bones: [{ name: 'root' }],
-    slots: [{ name: 'seq', bone: 'root'/*, attachment: 'hit/01'*/ }],
+    bones: [
+      { name: 'root' },
+      ...animations.map(([name]) => ({ name, parent: 'root' })),
+    ],
+    slots: animations.map(([name]) => ({ name, bone: name /*attachment: frames[0]*/ })),
     skins: {
-      default: {
-        // seq: {
-        //   'hit/01': { width: 0, height: 0 },
-        //   'hit/02': { width: 0, height: 0 },
+      default: Object.fromEntries(animations.map(([key, frames]) => {
+        // hit: {
+        //   hit/01: { width: 0, height: 0 },
+        //   hit/02: { width: 0, height: 0 }
         // },
-        seq: Object.fromEntries(spineAttachments.map(key => [key, { width: 0, height: 0 }]))
-      },
+        // jump: {
+        //   jump/01: { width: 0, height: 0 },
+        //   jump/02: { width: 0, height: 0 }
+        // }
+        return [key, Object.fromEntries(frames.map(key => [key, { width: 0, height: 0 }]))]
+      })),
     },
     // animations: {
     //   hit: {
     //     slots: {
-    //       seq: {
+    //       hit: {
     //         attachment: [
     //           { time: 0, name: 'hit/02' },
     //           { time: 0.0667, name: 'hit/03' },
@@ -72,7 +79,7 @@ export function folders2SpineAnimation(folders, fps=24) {
     animations: Object.fromEntries(animations.map(([key, frames]) => {
       return [key, {
         slots: {
-          seq: {
+          [key]: {
             attachment: frames.concat(frames[frames.length-1]).map((name, i) => ({ name, time: parseFloat((i*frameTime).toFixed(4)) })),
           },
         },
@@ -80,5 +87,5 @@ export function folders2SpineAnimation(folders, fps=24) {
     })),
   }
 
-  return JSON.stringify(result)
+  return JSON.stringify(result, null, 2)
 }
