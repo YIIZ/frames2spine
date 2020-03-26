@@ -11,7 +11,7 @@ function App() {
   const [fps, setFps] = value(24)
   const downloadString = compute(() => {
     const result = folders2SpineAnimation(folders(), fps())
-    return `data:text/json;base64,${btoa(result)}`
+    return `data:text/json,${result}`
   })
 
   const drop = evt => {
